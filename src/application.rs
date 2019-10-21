@@ -1,6 +1,6 @@
 //! OpenLibra Abscissa Application
 
-use crate::{commands::OpenLibraCmd, config::OpenLibraConfig};
+use crate::{commands::OpenLibraCmd, config::AppConfig};
 use abscissa_core::{
     application, config, logging, Application, EntryPoint, FrameworkError, StandardPaths,
 };
@@ -34,7 +34,7 @@ pub fn app_config() -> config::Reader<OpenLibraApp> {
 #[derive(Debug)]
 pub struct OpenLibraApp {
     /// Application configuration.
-    config: Option<OpenLibraConfig>,
+    config: Option<AppConfig>,
 
     /// Application state.
     state: application::State<Self>,
@@ -58,13 +58,13 @@ impl Application for OpenLibraApp {
     type Cmd = EntryPoint<OpenLibraCmd>;
 
     /// Application configuration.
-    type Cfg = OpenLibraConfig;
+    type Cfg = AppConfig;
 
     /// Paths to resources within the application.
     type Paths = StandardPaths;
 
     /// Accessor for application configuration.
-    fn config(&self) -> &OpenLibraConfig {
+    fn config(&self) -> &AppConfig {
         self.config.as_ref().expect("config not loaded")
     }
 
@@ -79,20 +79,12 @@ impl Application for OpenLibraApp {
     }
 
     /// Register all components used by this application.
-    ///
-    /// If you would like to add additional components to your application
-    /// beyond the default ones provided by the framework, this is the place
-    /// to do so.
     fn register_components(&mut self, command: &Self::Cmd) -> Result<(), FrameworkError> {
         let components = self.framework_components(command)?;
         self.state.components.register(components)
     }
 
     /// Post-configuration lifecycle callback.
-    ///
-    /// Called regardless of whether config is loaded to indicate this is the
-    /// time in app lifecycle when configuration would be loaded if
-    /// possible.
     fn after_config(&mut self, config: Self::Cfg) -> Result<(), FrameworkError> {
         // Configure components
         self.state.components.after_config(&config)?;
