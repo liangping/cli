@@ -1,8 +1,9 @@
 [package]
 name = "open-libra"
-authors = []
+authors = ["Tony Arcieri <tony@iqlusion.io>"]
 version = "0.1.0"
 edition = "2018"
+license = "Apache-2.0"
 
 [dependencies]
 abscissa_core = "0.4.0"
