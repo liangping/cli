@@ -1,8 +1,12 @@
 //! OpenLibra Subcommands
 
 pub mod config;
-pub mod version;
+#[cfg(feature = "genesis")]
+pub mod genesis;
+mod version;
 
+#[cfg(feature = "genesis")]
+use self::genesis::GenesisCmd;
 use self::{config::ConfigCmd, version::VersionCmd};
 use crate::config::AppConfig;
 use abscissa_core::{Command, Configurable, Help, Options, Runnable};
@@ -17,6 +21,11 @@ pub enum OpenLibraCmd {
     /// The `config` subcommand
     #[options(help = "generate libra-node configuration")]
     Config(ConfigCmd),
+
+    /// The `genesis` subcommand
+    #[cfg(feature = "genesis")]
+    #[options(help = "create genesis.blob from input peer_info.toml files")]
+    Genesis(GenesisCmd),
 
     /// The `help` subcommand
     #[options(help = "get usage information")]

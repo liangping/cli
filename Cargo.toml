@@ -6,20 +6,30 @@ edition = "2018"
 license = "Apache-2.0"
 
 [dependencies]
-abscissa_core = "0.4.0"
+abscissa_core = "0.4"
+bincode = { version = "1", default-features = false }
 failure = "0.1"
 getrandom = "0.1"
 gumdrop = "0.7"
 lazy_static = "1"
 libra-config = { git = "https://github.com/libra/libra.git" }
+libra-crypto = { git = "https://github.com/libra/libra.git" }
+libra-types = { git = "https://github.com/libra/libra.git" }
 parity-multiaddr = { version = "0.5", default-features = false }
 serde = { version = "1", features = ["serde_derive"] }
 toml = "0.5"
+
+# Used by the `genesis` feature only
+[dependencies.vm-genesis]
+git = "https://github.com/libra/libra.git"
+optional = true
 
 [dev-dependencies]
 tempfile = "3"
 
 [dev-dependencies.abscissa_core]
-version = "0.4.0"
+version = "0.4"
 features = ["testing"]
 
+[features]
+genesis = ["vm-genesis"]

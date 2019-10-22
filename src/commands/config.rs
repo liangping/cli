@@ -3,6 +3,7 @@
 pub mod builder;
 
 use self::builder::Builder;
+use crate::prelude::*;
 use abscissa_core::{Command, Options, Runnable};
 use std::path::PathBuf;
 
@@ -23,5 +24,11 @@ impl Runnable for ConfigCmd {
         }
 
         builder.build().unwrap();
+
+        status_ok!("Success", "all configuration files generated successfully");
+        status_info!(
+            "Visit",
+            "https://github.com/open-libra/devnet to join OpenLibra Devnet"
+        );
     }
 }
