@@ -1,7 +1,7 @@
 //! OpenLibra Subcommands
 
-mod config;
-mod version;
+pub mod config;
+pub mod version;
 
 use self::{config::ConfigCmd, version::VersionCmd};
 use crate::config::AppConfig;
