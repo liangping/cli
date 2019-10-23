@@ -18,6 +18,7 @@ use libra_config::{
 };
 use parity_multiaddr::Multiaddr;
 use std::path::{Path, PathBuf};
+use std::fs;
 
 /// Default address to listen on
 pub const DEFAULT_LISTEN_ADDRESS: &str = "/ip4/127.0.0.1";
@@ -103,6 +104,8 @@ impl Builder {
             RoleType::Validator,
             "only validator role is presently supported"
         );
+
+        fs::create_dir_all(self.output_dir.as_path()).expect("Can not create output directory");
 
         // Use the OS RNG to generate a seed unless one has been explicitly provided
         let key_seed = self.key_seed.unwrap_or_else(|| {
