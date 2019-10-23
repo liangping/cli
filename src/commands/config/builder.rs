@@ -17,8 +17,8 @@ use libra_config::{
     },
 };
 use parity_multiaddr::Multiaddr;
-use std::path::{Path, PathBuf};
 use std::fs;
+use std::path::{Path, PathBuf};
 
 /// Default address to listen on
 pub const DEFAULT_LISTEN_ADDRESS: &str = "/ip4/127.0.0.1";
